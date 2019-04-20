@@ -28,6 +28,8 @@ def daggerVersion = '2.21'
 def lombokVersion = '1.18.4'
 def androidArchVersion = '1.1.1'
 def lottieVersion = '2.7.0'
+def mockitoVersion = '2.7.22'
+def picassoVersion = '2.71828'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -37,6 +39,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     //add-on
     implementation 'com.squareup.moshi:moshi:1.5.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -55,10 +59,9 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     implementation "android.arch.lifecycle:extensions:$androidArchVersion"
     implementation "android.arch.lifecycle:viewmodel:$androidArchVersion"
-    implementation 'androidx.cardview:cardview:1.0.0'
     implementation "com.airbnb.android:lottie:$lottieVersion"
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
-
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
 }

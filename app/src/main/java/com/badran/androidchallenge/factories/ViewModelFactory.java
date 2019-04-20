@@ -8,7 +8,6 @@ import javax.inject.Provider;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import dagger.Provides;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
@@ -31,7 +30,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
                 }
             }
         }
-        //Sorry but I'm obligated
+        //Sorry but I'm obliged
         if(instance == null){
             throw new IllegalArgumentException("Unknown Model Class " + modelClass);
         }

@@ -1,6 +1,6 @@
 package com.badran.androidchallenge.dashboard.fragmain;
 
-import com.badran.androidchallenge.dashboard.fragmain.adapters.AdapterRepo;
+import com.badran.androidchallenge.dashboard.fragmain.adapters.RepoViewHolder;
 
 public interface ContractMain {
     interface View{
@@ -9,7 +9,8 @@ public interface ContractMain {
 
     interface Presenter{
         void fetchData();
-        void bindViewHolders(AdapterRepo.ViewHolder holder, int pos);
+
+        void bindViewHolders(RepoViewHolder holder, int pos);
         int getDataCount();
         void onDestroy();
     }

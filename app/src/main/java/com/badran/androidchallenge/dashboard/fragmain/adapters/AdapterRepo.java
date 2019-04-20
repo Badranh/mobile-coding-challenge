@@ -1,7 +1,6 @@
 package com.badran.androidchallenge.dashboard.fragmain.adapters;
 
 import android.graphics.Color;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.badran.androidchallenge.R;
 import com.badran.androidchallenge.dashboard.fragmain.ContractMain;
 import com.badran.androidchallenge.di.annotations.ActivityScoped;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -45,7 +45,7 @@ public class AdapterRepo extends RecyclerView.Adapter<AdapterRepo.ViewHolder> {
         return presenter.getDataCount();
     }
 
-    public static final class ViewHolder extends RecyclerView.ViewHolder {
+    public static final class ViewHolder extends RecyclerView.ViewHolder implements RepoViewHolder {
         private final TextView tvRepoName,tvLanguageName,tvUserName,tvStarsCount;
         private final ImageView imAvatar;
         private final View languageColor;
@@ -63,34 +63,24 @@ public class AdapterRepo extends RecyclerView.Adapter<AdapterRepo.ViewHolder> {
             tvStarsCount = itemView.findViewById(R.id.tv_stars_count);
         }
 
-        public TextView getTvRepoDesc() {
-            return tvRepoDesc;
-        }
-
-        public TextView getTvRepoName() {
-            return tvRepoName;
-        }
-
-        public TextView getTvLanguageName() {
-            return tvLanguageName;
-        }
-
-        public TextView getTvUserName() {
-            return tvUserName;
-        }
-
-        public TextView getTvStarsCount() {
-            return tvStarsCount;
-        }
-
-        public ImageView getImAvatar() {
-            return imAvatar;
-        }
-
+        @Override
         public void setLanguageColor(String Hex){
             languageColor.setBackgroundColor(Color.parseColor(Hex));
             cardLanguageColor.setCardBackgroundColor(Color.parseColor(Hex));
         }
 
+        @Override
+        public void setDataToTextView(String repoName, String repoDesc, String repoLanguage, String repoOwner, String repoStarCount) {
+            tvRepoDesc.setText(repoDesc);
+            tvRepoName.setText(repoName);
+            tvLanguageName.setText(repoLanguage);
+            tvStarsCount.setText(repoStarCount);
+            tvUserName.setText(repoOwner);
+        }
+
+        @Override
+        public void setImageToAvatar(String url) {
+            Picasso.get().load(url).into(imAvatar);
+        }
     }
 }

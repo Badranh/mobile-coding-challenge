@@ -1,13 +1,14 @@
 package com.badran.androidchallenge.dashboard.fragmain;
 
-import com.badran.androidchallenge.dashboard.fragmain.adapters.AdapterRepo;
+import com.badran.androidchallenge.dashboard.fragmain.adapters.RepoViewHolder;
 import com.badran.androidchallenge.data.GitColorsUtil;
 import com.badran.androidchallenge.data.api.DataRepository;
 import com.badran.androidchallenge.data.models.GithubRepo;
 import com.badran.androidchallenge.data.models.GithubRepos;
 import com.badran.androidchallenge.di.annotations.ActivityScoped;
-import com.squareup.picasso.Picasso;
+
 import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -52,21 +53,22 @@ public class PresenterMain implements ContractMain.Presenter {
     }
 
     @Override
-    public void bindViewHolders(AdapterRepo.ViewHolder holder, int pos) {
+    public void bindViewHolders(RepoViewHolder holder, int pos) {
         GithubRepo githubRepo = viewModel.getRepos().getValue().get(pos);
         if(viewModel.getRepos().getValue()!=null){
-            holder.getTvRepoName().setText(githubRepo.getRepoName());
-            holder.getTvRepoDesc().setText(githubRepo.getRepoDesc());
+            String languageName;
+
+            String hex = GitColorsUtil.getColorHex(githubRepo.getLanguageUsed()).getColor();
 
             if(githubRepo.getLanguageUsed() == null || githubRepo.getLanguageUsed().isEmpty())
-                holder.getTvLanguageName().setText("Unknown");
+                languageName = "Unknown";
             else
-                holder.getTvLanguageName().setText(githubRepo.getLanguageUsed());
+                languageName = githubRepo.getLanguageUsed();
 
-            holder.getTvUserName().setText((githubRepo.getOwner().getUsername()));
-            holder.getTvStarsCount().setText(String.valueOf(viewModel.getRepos().getValue().get(pos).getStarCount()));
-            Picasso.get().load(githubRepo.getOwner().getAvatarUrl()).into(holder.getImAvatar());
-            String hex = GitColorsUtil.getColorHex(githubRepo.getLanguageUsed()).getColor();
+            holder.setDataToTextView(githubRepo.getRepoName(), githubRepo.getRepoDesc(), languageName,
+                    githubRepo.getOwner().getUsername(), String.valueOf(githubRepo.getStarCount()));
+            holder.setImageToAvatar(githubRepo.getOwner().getAvatarUrl());
+
             if(hex!=null)
               holder.setLanguageColor(hex);
         }

@@ -1,8 +1,6 @@
 package com.badran.androidchallenge.base;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;

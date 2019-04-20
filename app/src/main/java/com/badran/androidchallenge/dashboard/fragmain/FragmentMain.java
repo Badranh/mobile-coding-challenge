@@ -9,7 +9,9 @@ import com.badran.androidchallenge.R;
 import com.badran.androidchallenge.base.BaseFragment;
 import com.badran.androidchallenge.dashboard.fragmain.adapters.AdapterRepo;
 import com.badran.androidchallenge.di.annotations.ActivityScoped;
+
 import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -98,7 +100,9 @@ public class FragmentMain extends BaseFragment implements ContractMain.View {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        if (presenter != null)
+            presenter.onDestroy();
+        presenter = null;
     }
 
 
