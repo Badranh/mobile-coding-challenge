@@ -64,7 +64,20 @@ public class FragmentMain extends BaseFragment implements ContractMain.View {
         scaleInAnimationAdapter.setFirstOnly(false);
         //
         reposRecyclerView.setAdapter(scaleInAnimationAdapter);
-        reposRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(RecyclerView.VERTICAL);
+        reposRecyclerView.setLayoutManager(llm);
+        reposRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (llm.findLastVisibleItemPosition() == llm.getItemCount() - 1) {
+                    //prevent duplicate requests
+                    if (viewModel.getIsLoading().getValue() == false)
+                        presenter.fetchData();
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     private void observableViewModel() {
@@ -77,10 +90,13 @@ public class FragmentMain extends BaseFragment implements ContractMain.View {
         //Bye bye cat, there's no place for you any more. May you find better person...
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null) {
-                loadingAnimation.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-                loadingAnimation.cancelAnimation();
-                //ok, I know how to kick u out :)
-                loadingAnimation.invalidate();
+                if (isLoading) {
+                    loadingAnimation.setVisibility(View.VISIBLE);
+                    loadingAnimation.playAnimation();
+                } else {
+                    loadingAnimation.setVisibility(View.GONE);
+                    loadingAnimation.pauseAnimation();
+                }
             }
         });
         //Hey cat,I'm sorry please can you stay

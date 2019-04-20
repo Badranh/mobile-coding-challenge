@@ -34,14 +34,18 @@ public class PresenterMain implements ContractMain.Presenter {
     @Override
     public void fetchData() {
         viewModel.setIsLoading(true);
-        disposable.add(dataRepository.getTrendingRepos("created:>2019-01-01","stars","desc").subscribeOn(Schedulers.io())
+        disposable.add(dataRepository.getTrendingRepos("created:>2019-01-01", "stars", "desc", viewModel.getCurPage()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableSingleObserver<GithubRepos>() {
                     @Override
                     public void onSuccess(GithubRepos value) {
-                        viewModel.setReposData(value.getGithubRepo());
+                        if (viewModel.reposSize() == 0)
+                            viewModel.setReposData(value.getGithubRepo());
+                        else
+                            viewModel.addToRepos(value.getGithubRepo());
                         viewModel.setGotAnError(false);
                         viewModel.setIsLoading(false);
                         viewModel.setSuccessfullyLoaded(true);
+                        viewModel.incrementPage();
                     }
 
                     @Override
@@ -87,5 +91,4 @@ public class PresenterMain implements ContractMain.Presenter {
         }
 
     }
-
 }

@@ -27,4 +27,6 @@ public class GithubRepo {
         this.languageUsed = languageUsed;
         this.owner = owner;
     }
+
+
 }

@@ -64,4 +64,7 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
+    testImplementation 'com.squareup.okhttp:mockwebserver:2.7.2'
+
 }

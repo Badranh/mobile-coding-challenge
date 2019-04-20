@@ -2,7 +2,6 @@ package com.badran.androidchallenge.data.api;
 
 import com.badran.androidchallenge.data.models.GithubRepos;
 
-
 import javax.inject.Inject;
 
 import io.reactivex.Single;
@@ -15,7 +14,7 @@ public class DataRepository {
         this.gitService = gitService;
     }
 
-    public Single<GithubRepos> getTrendingRepos(String relativeDate, String sortBy, String orderBy) {
-        return gitService.getRepos(relativeDate,sortBy,orderBy);
+    public Single<GithubRepos> getTrendingRepos(String relativeDate, String sortBy, String orderBy, int page) {
+        return gitService.getRepos(relativeDate, sortBy, orderBy, page);
     }
 }

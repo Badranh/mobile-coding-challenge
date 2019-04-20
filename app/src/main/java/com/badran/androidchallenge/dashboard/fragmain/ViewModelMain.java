@@ -6,21 +6,21 @@ import com.badran.androidchallenge.di.annotations.ActivityScoped;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 //This Class maintains the view state only.
-
-@Singleton
+@ActivityScoped
 public class ViewModelMain extends ViewModel {
 
+    private final Object lock = new Object();
     private final MutableLiveData<List<GithubRepo>> repos = new MutableLiveData<>();
     private final MutableLiveData<Boolean> gotAnError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final MutableLiveData<Boolean> successfullyLoaded = new MutableLiveData<>();
+    private int page = 1;
 
     @Inject
     public ViewModelMain() {
@@ -57,5 +57,25 @@ public class ViewModelMain extends ViewModel {
     }
     public void setSuccessfullyLoaded(boolean data){
         successfullyLoaded.setValue(data);
+    }
+
+    public void addToRepos(List<GithubRepo> data) {
+        repos.getValue().addAll(data);
+    }
+
+    public int reposSize() {
+        return repos.getValue() == null ? 0 : repos.getValue().size();
+    }
+
+    public int getCurPage() {
+        synchronized (lock) {
+            return page;
+        }
+    }
+
+    public void incrementPage() {
+        synchronized (lock) {
+            page++;
+        }
     }
 }
