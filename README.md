@@ -1,5 +1,16 @@
 # Mobile Coding Challenge
 
+## Solution:
+* Pattern used: MVPVM
+* Language: JAVA
+* Network Calls: Retrofit, RXJava, Gson
+* Image Loading: Picasso
+* Dependency Injections: Dagger2
+* View Bindings: ButterKnife
+* Model Code Generators: Lombok
+* Unit Test: Mockito
+* Animations: Lottie
+
 ## Idea of the App 
 The task is to implement a small app that will list the most starred Github repos that were created in the last 30 days. 
 You'll be fetching the sorted JSON data directly from the Github API (Github API explained down below). 
