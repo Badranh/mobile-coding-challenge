@@ -9,6 +9,7 @@ import com.badran.androidchallenge.di.annotations.ActivityScoped;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -29,6 +30,7 @@ public class PresenterMain implements ContractMain.Presenter {
     @Inject
     DataRepository dataRepository;
 
+    String date = getCurYearMonth();
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Inject
@@ -38,7 +40,7 @@ public class PresenterMain implements ContractMain.Presenter {
     @Override
     public void fetchData() {
         viewModel.setIsLoading(true);
-        disposable.add(dataRepository.getTrendingRepos("created:>" + getCurYearMonth() + "-01", "stars", "desc", viewModel.getCurPage()).subscribeOn(Schedulers.io())
+        disposable.add(dataRepository.getTrendingRepos("created:>" + date + "-01", "stars", "desc", viewModel.getCurPage()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableSingleObserver<GithubRepos>() {
                     @Override
                     public void onSuccess(GithubRepos value) {
@@ -97,8 +99,9 @@ public class PresenterMain implements ContractMain.Presenter {
 
     private String getCurYearMonth() {
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM");
-        Date date = new Date();
-
-        return dateFormat.format(date);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        Date result = cal.getTime();
+        return dateFormat.format(result);
     }
 }

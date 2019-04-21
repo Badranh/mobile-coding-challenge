@@ -20,10 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 @ActivityScoped
 public class AdapterRepo extends RecyclerView.Adapter<AdapterRepo.ViewHolder> {
-//Adapter Repo: I'm not good in handling data things.
-//Presenter: dw <3, I'll help you hun, I'll always be by your side.
+
     @Inject
     ContractMain.Presenter presenter;
+    private final Picasso picasso = Picasso.get();
 
     @Inject
     public AdapterRepo() {
@@ -45,7 +45,7 @@ public class AdapterRepo extends RecyclerView.Adapter<AdapterRepo.ViewHolder> {
         return presenter.getDataCount();
     }
 
-    public static final class ViewHolder extends RecyclerView.ViewHolder implements RepoViewHolder {
+    public final class ViewHolder extends RecyclerView.ViewHolder implements RepoViewHolder {
         private final TextView tvRepoName,tvLanguageName,tvUserName,tvStarsCount;
         private final ImageView imAvatar;
         private final View languageColor;
@@ -80,7 +80,7 @@ public class AdapterRepo extends RecyclerView.Adapter<AdapterRepo.ViewHolder> {
 
         @Override
         public void setImageToAvatar(String url) {
-            Picasso.get().load(url).into(imAvatar);
+            picasso.load(url).into(imAvatar);
         }
     }
 }

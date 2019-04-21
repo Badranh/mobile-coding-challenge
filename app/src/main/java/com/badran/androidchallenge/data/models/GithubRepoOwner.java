@@ -16,8 +16,9 @@ public class GithubRepoOwner {
     @SerializedName("html_url")
     private String githubLink;
 
-    public GithubRepoOwner(String avatarUrl, String githubLink) {
+    public GithubRepoOwner(String avatarUrl, String githubLink, String username) {
         this.avatarUrl = avatarUrl;
         this.githubLink = githubLink;
+        this.username = username;
     }
 }
