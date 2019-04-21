@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -30,7 +31,7 @@ public class PresenterMain implements ContractMain.Presenter {
     @Inject
     DataRepository dataRepository;
 
-    String date = getCurYearMonth();
+    private String date = getCurYearMonth();
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Inject
@@ -48,6 +49,7 @@ public class PresenterMain implements ContractMain.Presenter {
                             viewModel.setReposData(value.getGithubRepo());
                         else
                             viewModel.addToRepos(value.getGithubRepo());
+
                         viewModel.setGotAnError(false);
                         viewModel.setIsLoading(false);
                         viewModel.setSuccessfullyLoaded(true);
@@ -98,7 +100,7 @@ public class PresenterMain implements ContractMain.Presenter {
     }
 
     private String getCurYearMonth() {
-        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM");
+        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM", Locale.US);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
         Date result = cal.getTime();
