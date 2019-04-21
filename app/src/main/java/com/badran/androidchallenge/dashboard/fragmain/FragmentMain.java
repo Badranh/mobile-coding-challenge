@@ -81,13 +81,11 @@ public class FragmentMain extends BaseFragment implements ContractMain.View {
     }
 
     private void observableViewModel() {
-        //ah, you're here, well let me get rid of that weird cat
         viewModel.getRepos().observe(getViewLifecycleOwner(), repos -> {
             if(repos != null) {
                 adapterRepo.notifyDataSetChanged();
             }
         });
-        //Bye bye cat, there's no place for you any more. May you find better person...
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null) {
                 if (isLoading) {
@@ -99,7 +97,6 @@ public class FragmentMain extends BaseFragment implements ContractMain.View {
                 }
             }
         });
-        //Hey cat,I'm sorry please can you stay
         viewModel.getGotAnError().observe(getViewLifecycleOwner(), isError -> {
             if (isError != null) if(isError) {
                 showToast("Error Loading Repos");

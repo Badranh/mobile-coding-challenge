@@ -9,7 +9,6 @@ public interface ContractMain {
 
     interface Presenter{
         void fetchData();
-
         void bindViewHolders(RepoViewHolder holder, int pos);
         int getDataCount();
         void onDestroy();

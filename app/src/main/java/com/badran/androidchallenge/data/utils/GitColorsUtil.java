@@ -1,4 +1,4 @@
-package com.badran.androidchallenge.data;
+package com.badran.androidchallenge.data.utils;
 
 import com.badran.androidchallenge.data.models.gitcolors.GitColor;
 import com.google.gson.Gson;

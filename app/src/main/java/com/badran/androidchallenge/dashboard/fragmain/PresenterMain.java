@@ -1,11 +1,15 @@
 package com.badran.androidchallenge.dashboard.fragmain;
 
 import com.badran.androidchallenge.dashboard.fragmain.adapters.RepoViewHolder;
-import com.badran.androidchallenge.data.GitColorsUtil;
 import com.badran.androidchallenge.data.api.DataRepository;
 import com.badran.androidchallenge.data.models.GithubRepo;
 import com.badran.androidchallenge.data.models.GithubRepos;
+import com.badran.androidchallenge.data.utils.GitColorsUtil;
 import com.badran.androidchallenge.di.annotations.ActivityScoped;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -34,7 +38,7 @@ public class PresenterMain implements ContractMain.Presenter {
     @Override
     public void fetchData() {
         viewModel.setIsLoading(true);
-        disposable.add(dataRepository.getTrendingRepos("created:>2019-01-01", "stars", "desc", viewModel.getCurPage()).subscribeOn(Schedulers.io())
+        disposable.add(dataRepository.getTrendingRepos("created:>" + getCurYearMonth() + "-01", "stars", "desc", viewModel.getCurPage()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableSingleObserver<GithubRepos>() {
                     @Override
                     public void onSuccess(GithubRepos value) {
@@ -89,6 +93,12 @@ public class PresenterMain implements ContractMain.Presenter {
             disposable.dispose();
             disposable = null;
         }
+    }
 
+    private String getCurYearMonth() {
+        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM");
+        Date date = new Date();
+
+        return dateFormat.format(date);
     }
 }
