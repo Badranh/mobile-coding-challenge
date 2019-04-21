@@ -10,7 +10,7 @@
 * Model Code Generators: Lombok
 * Unit Test: Mockito
 * Animations: Lottie
-* Memory Leaks Detection: LeakCanary
+* Memory Leaks Detection: LeakCanary(No leaks were found)
 * Recycler View Animation: wasabeef recyclerview-animators
 
 ## Idea of the App 
