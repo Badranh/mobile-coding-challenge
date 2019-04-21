@@ -10,6 +10,8 @@
 * Model Code Generators: Lombok
 * Unit Test: Mockito
 * Animations: Lottie
+* Memory Leaks Detection: LeakCanary
+* Recycler View Animation: wasabeef recyclerview-animators
 
 ## Idea of the App 
 The task is to implement a small app that will list the most starred Github repos that were created in the last 30 days. 
